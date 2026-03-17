@@ -24,6 +24,48 @@ const Templates = {
   </form>
 </div>
 `
+  },
+
+  noContacts: function () {
+    return `
+    <div class="top-bar">
+      <button class="add-contact-btn">Add Contact</button>
+      <input type="text" class="search-input" placeholder="Search">
+    </div>
+    <div class="main-content">
+      <div class="no-contacts">
+        <p>There is no contacts.</p>
+        <button class="add-contact-btn">Add Contact</button>
+      </div>
+    </div>
+    `
+  },
+
+  contactList: function (contacts) {
+    let contactCards = contacts.map(contact => {
+      return this.contactCard(contact);
+    });
+    let template = `
+      <div class="contacts-list">
+        ${contactCards.join(' ')}
+      </div>
+      `;
+
+    return template;
+  },
+
+  contactCard: function(contact) {
+    return `
+    <div class="contact-card">
+      <h3>${contact.full_name}</h3>
+      <p><strong>Phone Number:</strong><br>${contact.phone_number}</p>
+      <p><strong>Email:</strong><br>${contact.email}</p>
+      <div class="card-actions">
+        <button class="card-btn edit-btn"><span class="icon">✏️</span> Edit</button>
+        <button class="card-btn delete-btn"><span class="icon">🗑️</span> Delete</button>
+      </div>
+    </div>
+        `
   }
 }
 export default Templates;
