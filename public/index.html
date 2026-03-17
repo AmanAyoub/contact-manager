@@ -4,11 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Contact Manager</title>
   <script src="/javascripts/jquery.js"></script>
   <script src="/javascripts/handlebars.js"></script>
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <script type="module" src="javascripts/script.js"></script>
 </head>
 <body>
+  <header class="header">
+    <h1>Contact Manager</h1>
+    <p>Using Backbone.js, Localstorage, RequireJS, Handlebar and Bootstrap</p>
+  </header>
 
+  <main class="container">
+    <div class="top-bar">
+      <button class="add-contact-btn">Add Contact</button>
+      <input type="text" class="search-input" placeholder="Search">
+    </div>
+    <div class="main-content">
+      <div class="no-contacts">
+        <p>There is no contacts.</p>
+        <button class="add-contact-btn">Add Contact</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Developed by <a href="https://amanayoub.com">amanayoub.com</a> and <a href="https://www.239listing.com">239 Listing Real Estate.</a></p>
+  </footer>
 </body>
 </html>
