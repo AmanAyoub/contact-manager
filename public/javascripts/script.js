@@ -31,6 +31,9 @@ function handleAddContact(event) {
   let container = document.querySelector("#container");
   container.innerHTML = Templates.newContact();
 
+  let topBar = document.querySelector(".top-bar");
+  topBar.style.display = "none";
+
   let newContactForm = document.querySelector("form");
   newContactForm.addEventListener("submit", handleNewContact);
 
@@ -44,6 +47,9 @@ async function fetchContacts() {
 }
 
 function renderContacts(contacts) {
+  let topBar = document.querySelector(".top-bar");
+  topBar.style.display = "flex";
+
   let container = document.querySelector("#container");
 
   if (contacts.length === 0) {
@@ -127,6 +133,9 @@ async function main(event) {
       let contactId = target.getAttribute("data-id");
       let contact = contacts.find(contact => contact.id === Number(contactId));
       container.innerHTML = Templates.editContact(contact);
+
+      let topBar = document.querySelector(".top-bar");
+      topBar.style.display = "none";
 
       let form = document.querySelector("form");
       form.addEventListener("submit", handleContactEdit);
