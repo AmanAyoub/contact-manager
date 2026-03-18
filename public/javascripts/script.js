@@ -24,8 +24,7 @@ async function handleNewContact(event) {
     body: JSON.stringify(data),
   });
 
-  await fetchContacts();
-  renderContacts(contacts);
+  await loadContacts();
 }
 
 function handleAddContact(event) {
@@ -34,6 +33,9 @@ function handleAddContact(event) {
 
   let newContactForm = document.querySelector("form");
   newContactForm.addEventListener("submit", handleNewContact);
+
+  let cancelButton = document.querySelector(".cancel-btn");
+  cancelButton.addEventListener("click", event => renderContacts(contacts));
 }
 
 async function fetchContacts() {
@@ -71,15 +73,38 @@ function handleSearch(event) {
   }
 }
 
-async function main(event) {
+async function deleteContact(id) {
+  if (confirm("Do you want to delete the contact?")) {
+    let response = await fetch(BASE_URL + `/api/contacts/${id}`, {
+      method: "DELETE"
+    });
+  }
+
+}
+
+async function loadContacts() {
   await fetchContacts();
   renderContacts(contacts);
+}
+
+async function main(event) {
+  await loadContacts();
+
   let addContact = Array.from(document.querySelectorAll(".add-contact-btn"));
   addContact.forEach(node => node.addEventListener("click", handleAddContact));
 
   let searchForm = document.querySelector(".search-input");
   searchForm.addEventListener("keyup", handleSearch);
 
+
+  let container = document.querySelector("#container");
+  container.addEventListener("click", async event => {
+    let target = event.target;
+    if (target.classList.contains("delete-btn")) {
+      await deleteContact(target.getAttribute("data-id"));
+      await loadContacts();
+    }
+  });
 
 }
 
