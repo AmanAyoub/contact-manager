@@ -28,10 +28,6 @@ const Templates = {
 
   noContacts: function () {
     return `
-    <div class="top-bar">
-      <button class="add-contact-btn">Add Contact</button>
-      <input type="text" class="search-input" placeholder="Search">
-    </div>
     <div class="main-content">
       <div class="no-contacts">
         <p>There is no contacts.</p>
