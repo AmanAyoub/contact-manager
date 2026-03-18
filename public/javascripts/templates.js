@@ -26,6 +26,35 @@ const Templates = {
     `
   },
 
+  editContact: function (contact) {
+    return `
+    <div class="edit-contact">
+      <h2 class="edit-contact-title">Edit Contact</h2>
+      <hr class="edit-contact-divider">
+      <form class="edit-contact-form" data-id=${contact.id}>
+        <div class="form-group">
+          <label for="edit-full-name">Full name:</label>
+          <input type="text" id="edit-full-name" name="full_name" 
+            class="form-input" autocomplete="off" required value="${contact.full_name}">
+        </div>
+        <div class="form-group">
+          <label for="edit-email">Email address:</label>
+          <input type="email" id="edit-email" name="email"
+            class="form-input" autocomplete="off" required value="${contact.email}">
+        </div>
+        <div class="form-group">
+          <label for="edit-telephone">Telephone number:</label>
+          <input type="text" id="edit-telephone" name="phone_number"
+            class="form-input" autocomplete="off" required value="${contact.phone_number}">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="form-btn submit-btn">Submit</button>
+          <button type="button" class="form-btn cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>`;
+  },
+
   noContacts: function () {
     return `
     <div class="main-content">
@@ -57,7 +86,7 @@ const Templates = {
       <p><strong>Phone Number:</strong><br>${contact.phone_number}</p>
       <p><strong>Email:</strong><br>${contact.email}</p>
       <div class="card-actions">
-        <button class="card-btn edit-btn"><span class="icon">✏️</span> Edit</button>
+        <button class="card-btn edit-btn" data-id=${contact.id}><span class="icon">✏️</span> Edit</button>
         <button class="card-btn delete-btn" data-id=${contact.id}><span class="icon">🗑️</span> Delete</button>
       </div>
     </div>`

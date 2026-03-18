@@ -75,7 +75,7 @@ function handleSearch(event) {
 
 async function deleteContact(id) {
   if (confirm("Do you want to delete the contact?")) {
-    let response = await fetch(BASE_URL + `/api/contacts/${id}`, {
+    await fetch(BASE_URL + `/api/contacts/${id}`, {
       method: "DELETE"
     });
   }
@@ -85,6 +85,25 @@ async function deleteContact(id) {
 async function loadContacts() {
   await fetchContacts();
   renderContacts(contacts);
+}
+
+async function handleContactEdit(event) {
+  event.preventDefault();
+
+  let data = formDataToJson(new FormData(event.currentTarget));
+  data.tags = null;
+  let contactId = event.currentTarget.getAttribute("data-id");
+  data.id = contactId;
+
+  await fetch(BASE_URL + `/api/contacts/${contactId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(data),
+  });
+
+  await loadContacts();
 }
 
 async function main(event) {
@@ -100,9 +119,21 @@ async function main(event) {
   let container = document.querySelector("#container");
   container.addEventListener("click", async event => {
     let target = event.target;
+
     if (target.classList.contains("delete-btn")) {
       await deleteContact(target.getAttribute("data-id"));
       await loadContacts();
+    } else if(target.classList.contains("edit-btn")) {
+      let contactId = target.getAttribute("data-id");
+      let contact = contacts.find(contact => contact.id === Number(contactId));
+      container.innerHTML = Templates.editContact(contact);
+
+      let form = document.querySelector("form");
+      form.addEventListener("submit", handleContactEdit);
+
+      document.querySelector(".cancel-btn").addEventListener("click", event => {
+        renderContacts(contacts);
+      });
     }
   });
 
