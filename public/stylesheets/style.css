@@ -1,3 +1,18 @@
+/* Search Empty Result Styles */
+.search-empty-result {
+  text-align: center;
+  color: #4a3c6a;
+  font-size: 1.5em;
+  background: #f7f7f7;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 60px 0;
+  margin: 30px auto;
+  max-width: 90%;
+}
+.search-empty-result strong {
+  font-weight: bold;
+}
 /* Contacts List */
 .contacts-list {
   display: flex;

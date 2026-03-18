@@ -1,19 +1,47 @@
 import Templates from "./templates.js";
 const BASE_URL = "http://localhost:3000";
+let contacts;
 
+function formDataToJson(data) {
+  let obj = {};
+  for (let [key, value] of data.entries()) {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+async function handleNewContact(event) {
+  event.preventDefault();
+  
+  let data = formDataToJson(new FormData(event.currentTarget));
+  data.tags = null;
+  await fetch(BASE_URL + "/api/contacts/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify(data),
+  });
+
+  await fetchContacts();
+  renderContacts(contacts);
+}
 
 function handleAddContact(event) {
   let container = document.querySelector("#container");
   container.innerHTML = Templates.newContact();
+
+  let newContactForm = document.querySelector("form");
+  newContactForm.addEventListener("submit", handleNewContact);
 }
 
 async function fetchContacts() {
   let response = await fetch(BASE_URL + "/api/contacts");
-  return await response.json();
+  contacts = await response.json();
 }
 
-async function renderContacts() {
-  let contacts = await fetchContacts();
+function renderContacts(contacts) {
   let container = document.querySelector("#container");
 
   if (contacts.length === 0) {
@@ -23,13 +51,36 @@ async function renderContacts() {
   }
 }
 
-function main(event) {
-  renderContacts();
-  let addContact = Array.from(document.querySelectorAll(".add-contact-btn"));
-
-  addContact.forEach(node => {
-    node.addEventListener("click", handleAddContact);
+function findContacts(term) {
+  return contacts.filter(contact => {
+    return contact.full_name.toLowerCase().includes(term.toLowerCase());
   });
+}
+
+function handleSearch(event) {
+  if (event.key === " ") return;
+  let searchTerm = event.target.value;
+
+  if (!(/^[\(\)\\\?\.]/g.test(searchTerm))) {
+    let contacts = findContacts(searchTerm);
+    if (contacts.length === 0) {
+      document.querySelector("#container").innerHTML = Templates.noContactsFound(searchTerm);
+    } else {
+      renderContacts(contacts);
+    }
+  }
+}
+
+async function main(event) {
+  await fetchContacts();
+  renderContacts(contacts);
+  let addContact = Array.from(document.querySelectorAll(".add-contact-btn"));
+  addContact.forEach(node => node.addEventListener("click", handleAddContact));
+
+  let searchForm = document.querySelector(".search-input");
+  searchForm.addEventListener("keyup", handleSearch);
+
+
 }
 
 document.addEventListener("DOMContentLoaded", main);

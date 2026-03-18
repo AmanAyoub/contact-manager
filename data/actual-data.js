@@ -26,40 +26,11 @@
     "email": "cr7@gmail.com",
     "phone_number": "843843938245",
     "tags": null
-  },
-  {
+  }, {
     "id": 5,
     "full_name": "Ismat Ghaatol",
     "email": "ismat@gmail.com",
     "phone_number": "438958305393",
     "tags": null
-  },
-  {
-    "full_name": "Wagma Ahmadzai",
-    "phone_number": "0849482098",
-    "email": "wagma@gmail.com",
-    "tags": null,
-    "id": 6
-  },
-  {
-    "full_name": "Bilal Walidzada",
-    "phone_number": "483028539085",
-    "email": "bilal@gmail.com",
-    "tags": null,
-    "id": 7
-  },
-  {
-    "full_name": "Khushal Zarang",
-    "phone_number": "0783840394",
-    "email": "khushal@gmail.com",
-    "tags": null,
-    "id": 8
-  },
-  {
-    "full_name": "Ghani Zamaray",
-    "phone_number": "08298392323",
-    "email": "ghani@gmail.com",
-    "tags": null,
-    "id": 9
   }
 ]
